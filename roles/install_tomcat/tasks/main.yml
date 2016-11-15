@@ -1,0 +1,20 @@
+---
+  - name: chk tomcat
+    stat: path={{tomcat_install_dir}}/bin
+    register: tomcat
+
+  - name: create tomcate file if not exsits
+    file: path={{tomcat_install_dir}} state=directory
+    when: tomcat.stat.exists==false
+
+  - name: extrct tomcat folder
+    unarchive: src=apache-tomcat-9.0.0.M9.tar.gz dest={{tomcat_install_dir}} mode=0775
+    when: tomcat.stat.exists==false
+
+  - name: move tomcatto parent
+    shell: mv {{tomcat_install_dir}}/{{tomcat_version}}/* {{tomcat_install_dir}}/
+    when: tomcat.stat.exists==false
+
+  - name: rm empty folder
+    shell: rm -rf {{tomcat_install_dir}}/{{tomcat_version}}/ 
+    when: tomcat.stat.exists==false

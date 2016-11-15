@@ -1,0 +1,12 @@
+--- 
+    
+ - name: install wget latest version
+   yum: name='wget' state=installed
+   sudo: yes
+
+ - name: copy app file to host
+   get_url:
+      url: http://54.179.156.185:8081/artifactory/libs-snapshot-local/com/wakaleo/gameoflife/gameoflife-web/1.0-SNAPSHOT/gameoflife-web-1.0-20161110.065106-2.war
+      dest: /home/ec2-user/apps/tomcat/webapps
+
+

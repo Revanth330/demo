@@ -1,0 +1,2 @@
+java_version: jre1.8.0_102
+java_install_dir: /home/{{ansible_user_id}}/apps/java

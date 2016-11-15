@@ -1,0 +1,14 @@
+---
+  - name: chk tomcat running
+    shell: ps axf | grep "{{tomcat_install_dir}}/bin" | grep -v grep
+    ignore_errors: true
+    register: tomcat_run_check
+
+  - name: start tomcat
+    command: "{{tomcat_install_dir}}/bin/startup.sh"
+    ignore_errors: true
+    async: 600
+    when: tomcat_run_check.rc != "" and tomcat_run_check.rc == 1
+
+  - name: Wait for tomcat start
+    wait_for: port=8080 state=started host={{inventory_hostname}}

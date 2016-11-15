@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  
+
+  roles:
+     - install_java
+#     - install_tomcat
+#     - stop_tomcat
+#     - deploy_war
+#     - start_tomcat

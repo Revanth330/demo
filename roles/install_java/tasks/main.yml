@@ -1,0 +1,25 @@
+---
+
+ - name: chk if java exisits
+   stat: path={{java_install_dir}}/bin
+   register: java
+
+ - name: create java file if not exsits
+   file: path={{java_install_dir}} state=directory mode=0775
+   when: java.stat.exists==false
+
+ - name: extract java file to host
+   unarchive: src=jre-8u102-linux-x64.tar.gz dest={{java_install_dir}} mode=0775
+   when: java.stat.exists==false
+
+ - name: move java to parent
+   shell: mv {{java_install_dir}}/{{java_version}}/* {{java_install_dir}}/
+   when: java.stat.exists==false
+
+ - name: rm java install folder
+   shell: rm -rf {{java_install_dir}}/{{java_version}}/ 
+   when: java.stat.exists==false
+
+ - name: set java path to bash_profile
+   lineinfile: dest=/home/{{ansible_user_id}}/.bashrc line="export JRE_HOME={{java_install_dir}}"
+   when: java.stat.exists==false
