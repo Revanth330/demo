@@ -1,2 +1,2 @@
 tomcat_version: apache-tomcat-9.0.0.M9
-tomcat_install_dir: /home/ec2-user/apps/tomcat
+tomcat_install_dir: /home/{{ansible_user_id}}/apps/tomcat
