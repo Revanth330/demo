@@ -1,1 +1,1 @@
-tomcat_install_dir: /home/ansible/apps/tomcat
+tomcat_install_dir: /home/{{ansible_user_id}}/apps/tomcat
